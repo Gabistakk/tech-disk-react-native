@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { epilogueFont } from "../assets/fonts/fontsExport.js";
-import HomeLogo from "../assets/svg/homeLogo.js";
-import HomeButton from "../assets/svg/homeButton.js";
+import HomeLogo from "../assets/svg/home/homeLogo.js";
+import HomeButton from "../assets/svg/home/homeButton.js";
 import { StyleSheet } from "react-native";
 
 function Home({ navigation }) {
@@ -13,7 +13,7 @@ function Home({ navigation }) {
 
   return (
     <View className=" h-screen w-screen flex flex-col items-center pt-10 justify-start">
-      <View className="mb-16">
+      <View className="mb-20 mt-10">
         <HomeLogo />
       </View>
       <Text
@@ -22,7 +22,7 @@ function Home({ navigation }) {
       >
         CLIQUE ABAIXO!
       </Text>
-      <HomeButton />
+      <HomeButton onPress={() => navigation.navigate('Login')} />
     </View>
   );
 }

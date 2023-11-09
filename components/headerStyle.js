@@ -1,5 +1,5 @@
 import { interFont } from "../assets/fonts/fontsExport";
-import HeaderLogo from "../assets/svg/headerLogo";
+import HeaderLogo from "../assets/svg/home/headerLogo";
 
 export default function headerStyle() {
   const [interLoaded] = interFont();
@@ -7,6 +7,9 @@ export default function headerStyle() {
   if (!interLoaded) {
     return null;
   }
+
+
+
   return {
     headerTitleAlign: "center",
     headerLargeTitleShadowVisible: true,
