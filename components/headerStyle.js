@@ -1,5 +1,7 @@
+import { useNavigation } from "@react-navigation/native";
 import { interFont } from "../assets/fonts/fontsExport";
 import HeaderLogo from "../assets/svg/home/headerLogo";
+import * as RootNavigation from '../utils/RootNavigation';
 
 export default function headerStyle() {
   const [interLoaded] = interFont();
@@ -7,8 +9,6 @@ export default function headerStyle() {
   if (!interLoaded) {
     return null;
   }
-
-
 
   return {
     headerTitleAlign: "center",
@@ -23,6 +23,6 @@ export default function headerStyle() {
       fontSize: 25,
       fontFamily: "InterBold",
     },
-    headerRight: () => <HeaderLogo />,
+    headerRight: () => <HeaderLogo onPress={() => RootNavigation.navigate('SobreNos')} />,
   };
 }

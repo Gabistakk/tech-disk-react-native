@@ -5,9 +5,8 @@ import EnterButton from "../assets/svg/login/enterButton";
 import SignUpButton from "../assets/svg/login/signUpButton";
 
 function Login({ navigation }) {
-  const [interLoaded] = interFont();
-
-  const [epilogueLoaded] = epilogueFont();
+  
+  const [interLoaded, epilogueLoaded] = [interFont(), epilogueFont()];
 
   if (!interLoaded || !epilogueLoaded) {
     return null;

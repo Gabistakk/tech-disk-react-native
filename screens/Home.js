@@ -12,7 +12,7 @@ function Home({ navigation }) {
   }
 
   return (
-    <View className=" h-screen w-screen flex flex-col items-center pt-10 justify-start">
+    <View className=" h-screen w-screen flex flex-col items-center pt-28 justify-start">
       <View className="mb-20 mt-10">
         <HomeLogo />
       </View>

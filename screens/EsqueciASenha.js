@@ -13,7 +13,7 @@ function EsqueciASenha({ navigation }) {
 
   return (
     <View className='h-screen w-screen flex flex-col items-center pt-20'>
-        <Text style={{ fontFamily: 'InterLight', fontSize: 32, color: '#23386D', marginBottom: 30 }}>ESQUECI A SENHA</Text>
+        <Text style={{ fontFamily: 'InterLight', fontSize: 32, color: '#23386D', marginBottom: 40 }}>ESQUECI A SENHA</Text>
 
         <Text style={{
         fontFamily: "InterSemiBold",

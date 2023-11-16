@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { epilogueFont } from '../assets/fonts/fontsExport'
+import EnterButton from '../assets/svg/login/enterButton';
 
 function SignUp() {
 
@@ -20,11 +21,53 @@ function SignUp() {
         fontSize: 20,
         marginTop: 35,
         fontWeight: 'bold'
+      }}>Digite seu Nome abaixo:</Text>
+      <TextInput
+        style={styles.shadowInput}
+        placeholder="Seu nome aqui!"
+      />
+
+
+<Text style={{
+        fontFamily: "InterSemiBold",
+        color: "#697386",
+        fontSize: 20,
+        marginTop: 20,
+        fontWeight: 'bold'
       }}>Digite seu E-mail abaixo:</Text>
       <TextInput
         style={styles.shadowInput}
         placeholder="Email@gmail.com"
       />
+
+
+      <Text style={{
+        fontFamily: "InterSemiBold",
+        color: "#697386",
+        fontSize: 20,
+        marginTop: 20,
+        fontWeight: 'bold'
+      }}>Digite sua senha abaixo</Text>
+      <TextInput
+        style={styles.shadowInput}
+        placeholder="Sua senha aqui!"
+      />
+
+
+      <Text style={{
+        fontFamily: "InterSemiBold",
+        color: "#697386",
+        fontSize: 20,
+        marginTop: 20,
+        fontWeight: 'bold'
+      }}>Digite seu telefone abaixo:</Text>
+      <TextInput
+        style={styles.shadowInput}
+        keyboardType='numeric'
+        placeholder="(99) 9999-9999"
+      />
+
+<EnterButton style={{marginTop: 30}}/>
 
     </View>
   )
@@ -38,8 +81,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
         elevation: 0.3,
-      height: 80,
-      fontSize: 20,
+      height: 45,
+      fontSize: 18,
       width: 300,
       margin: 12,
       padding: 10,
