@@ -1,14 +1,15 @@
 import { Text, View } from 'react-native'
 import { epilogueFont, interFont } from '../assets/fonts/fontsExport';
 
-function AboutUs() {
+function AboutUs({ navigation }) {
 
-    const [interLoaded, epilogueLoaded] = [interFont(), epilogueFont()];
+  const [interLoaded] = interFont();
 
-    if (!interLoaded || !epilogueLoaded) {
-        return null;
-    }
+  const [epilogueLoaded] = epilogueFont();
 
+  if (!interLoaded || !epilogueLoaded) {
+    return null;
+  }
 
     
   return (

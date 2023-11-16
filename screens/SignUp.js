@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { epilogueFont } from '../assets/fonts/fontsExport'
 import EnterButton from '../assets/svg/login/enterButton';
 
-function SignUp() {
+function SignUp({ navigation }) {
 
     const [epilogueLoaded] = epilogueFont();
 

@@ -23,6 +23,6 @@ export default function headerStyle() {
       fontSize: 25,
       fontFamily: "InterBold",
     },
-    headerRight: () => <HeaderLogo onPress={() => RootNavigation.navigate('SobreNos')} />,
+    headerRight: () => <HeaderLogo onPress={() => RootNavigation.navigate('Sobre Nós')} />,
   };
 }

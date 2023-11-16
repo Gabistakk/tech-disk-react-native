@@ -6,7 +6,9 @@ import SignUpButton from "../assets/svg/login/signUpButton";
 
 function Login({ navigation }) {
   
-  const [interLoaded, epilogueLoaded] = [interFont(), epilogueFont()];
+  const [interLoaded] = interFont();
+
+  const [epilogueLoaded] = epilogueFont();
 
   if (!interLoaded || !epilogueLoaded) {
     return null;

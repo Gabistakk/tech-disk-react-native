@@ -9,18 +9,28 @@ import EsqueciASenha from "./screens/EsqueciASenha";
 import SignUp from "./screens/SignUp";
 import AboutUs from "./screens/AboutUs";
 import { navigationRef } from './utils/RootNavigation';
+import Services from "./screens/Services";
+import CrudServices from "./screens/CrudServices";
+import CrudFunc from "./screens/CrudFunc";
+import Location from "./screens/Location";
+import ShowCaseScreen from "./screens/ShowCaseScreen";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="ShowCase">
         <Stack.Screen name="Home" component={Home} /* options={headerStyle()} */ options={{headerShown: false}} />
         <Stack.Screen name="Login" component={Login} options={headerStyle()} />
         <Stack.Screen name="Esqueci a Senha" component={EsqueciASenha} options={headerStyle()} />
         <Stack.Screen name="Cadastro" component={SignUp} options={headerStyle()} />
-        <Stack.Screen name="SobreNos" component={AboutUs} options={headerStyle()} />
+        <Stack.Screen name="Sobre Nós" component={AboutUs} options={headerStyle()} />
+        <Stack.Screen name="Serviços" component={Services} options={headerStyle()} />
+        <Stack.Screen name="Crud Serviços" component={CrudServices} options={headerStyle()} />
+        <Stack.Screen name="Crud Funcionários" component={CrudFunc} options={headerStyle()} />
+        <Stack.Screen name="Localização" component={Location} options={headerStyle()} />
+        <Stack.Screen name="ShowCase" component={ShowCaseScreen} options={headerStyle()} />
       </Stack.Navigator>
     </NavigationContainer>
   );
