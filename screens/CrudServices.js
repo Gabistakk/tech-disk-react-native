@@ -1,16 +1,37 @@
 import { View, Text, Button, TextInput, StyleSheet, ScrollView } from "react-native";
 import { epilogueFont, interFont } from "../assets/fonts/fontsExport";
-import Lupa from "../assets/svg/crudServices/lupa";
-import PfpIcon from "../assets/svg/crudServices/icon";
-import Tag from "../assets/svg/crudServices/tag";
-import Chip from "../components/Chip";
-import PfpiconW from './../assets/svg/crudServices/pfpiconW';
-import CardServices from './../components/crudServices/CardServices';
+import Lupa from "../assets/svg/crudFunc/lupa";
+import CardServices from '../components/crudServices/CardServices';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function CrudServices({ navigation }) {
   const [interLoaded] = interFont();
 
   const [epilogueLoaded] = epilogueFont();
+
+  const [data, setData] = useState([])
+
+  const [loaded, setLoaded] = useState(false)
+
+  const [search, setSearch] = useState('')
+
+
+  useEffect(() => {
+    getData();
+  }, [])
+
+
+  const getData = async () => {
+    try {
+      const res = await axios.get("http://10.112.240.225:3000/servico")
+      setData(res.data)
+      setLoaded(true)
+    }
+    catch(err){
+      console.log(err.message)
+    }
+  }
 
   if (!interLoaded || !epilogueLoaded) {
     return null;
@@ -19,7 +40,7 @@ function CrudServices({ navigation }) {
   return (
     <View className="h-full w-screen flex flex-col items-center pt-5">
       <View className="flex flex-row items-center">
-        <TextInput style={styles.shadowInput} placeholder="Pesquise aqui!" />
+        <TextInput style={styles.shadowInput} value={search} onChangeText={(text) => setSearch(text)} placeholder="Pesquise aqui!" />
         <Lupa />
       </View>
       <ScrollView>
@@ -32,12 +53,13 @@ function CrudServices({ navigation }) {
           marginBottom: 30,
         }}
       >
-        Resultados da Pesquisa {"\n"}serviços
+        Resultados da Pesquisa {"\n"}Serviços
       </Text>
-      <CardServices nome='josé' servico="limpeza" preco={'10,50'} profilePicture={<PfpIcon />} />
-      <CardServices profilePicture={<PfpiconW />} nome='joana' servico='formatação' preco={'50,00'} />
-      <CardServices />
-      <CardServices />
+      {loaded && data.filter(servico => ((servico.nome.toUpperCase().includes(search.toUpperCase())) || (servico.detalhesContrato.toUpperCase().includes(search.toUpperCase())))).map(servico => {
+        return(
+          <CardServices nome={servico.nome} garantia={servico.garantia}detalhes={servico.detalhesContrato} />
+        )
+      })}
       </ScrollView>
     </View>
   );

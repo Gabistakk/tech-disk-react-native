@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
-import PfpIcon from '../../assets/svg/crudServices/icon'
+import PfpIcon from '../../assets/svg/crudFunc/icon'
 import Chip from '../Chip'
+import axios from 'axios'
 
-function CardFunc( { nome, compras, profilePicture }) {
-        
+function CardFunc( { nome, especialidade, disponibilidade, profilePicture }) {
+
+    
   return (
     <View
         className="flex flex-row items-center pl-10 pt-5 pb-5 mb-10"
@@ -13,7 +15,8 @@ function CardFunc( { nome, compras, profilePicture }) {
         {(profilePicture) ? profilePicture : <PfpIcon />}
         <View className="flex flex-col ml-4">
           <Chip text={nome} />
-          <Chip text={compras} />
+          <Chip text={especialidade} />
+          <Chip text={disponibilidade} />
         </View>
       </View>
   )

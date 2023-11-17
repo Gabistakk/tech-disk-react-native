@@ -1,23 +1,27 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import PfpIcon from '../../assets/svg/crudServices/icon'
-import Chip from '../Chip'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import ServicesChip from './servicesChip'
+import { interFont } from '../../assets/fonts/fontsExport'
 
-function CardServices( { nome, servico, preco, profilePicture }) {
-    
-    preco && (preco = 'R$ ' + preco)
-    
+function CardServices( { nome, garantia, detalhes }) {
+
+  const [interLoaded] = interFont();
+
+  if(!interLoaded){
+    return null
+  }
+
   return (
     <View
-        className="flex flex-row items-center pl-10 pt-5 pb-5 mb-10"
+        className="flex flex-col items-center justify-center mb-10"
         style={styles.boxShadow}
       >
-        {(profilePicture) ? profilePicture : <PfpIcon />}
-        <View className="flex flex-col ml-4">
-          <Chip text={nome} />
-          <Chip text={servico} />
-          <Chip text={preco} />
-        </View>
+          <Text style={{fontFamily: 'InterSemiBold', fontSize: 20}} className="text-white">Serviço:</Text>
+          <ServicesChip text={nome} />
+          <Text style={{fontFamily: 'InterSemiBold', fontSize: 20}} className="text-white">Detalhes:</Text>
+          <ServicesChip text={detalhes} />
+          <Text style={{fontFamily: 'InterSemiBold', fontSize: 20}} className="text-white">Tempo de Garantia:</Text>
+          <ServicesChip text={garantia} />
       </View>
   )
 }

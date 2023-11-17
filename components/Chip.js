@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
-import Tag from "../assets/svg/crudServices/tag";
+import Tag from "../assets/svg/crudFunc/tag";
 
 function Chip({ text='não encontrado' }) {
   return (
