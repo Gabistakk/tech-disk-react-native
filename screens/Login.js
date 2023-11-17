@@ -3,6 +3,10 @@ import { epilogueFont, interFont } from "../assets/fonts/fontsExport";
 import EsqueciButton from "../assets/svg/login/esqueciButton";
 import EnterButton from "../assets/svg/login/enterButton";
 import SignUpButton from "../assets/svg/login/signUpButton";
+import { useEffect, useState } from "react";
+import Toast from "react-native-toast-message";
+import { toastConfig } from "../utils/Toast";
+import axios from "axios";
 
 function Login({ navigation }) {
   
@@ -10,9 +14,58 @@ function Login({ navigation }) {
 
   const [epilogueLoaded] = epilogueFont();
 
+  const [emailInput, setEmailInput] = useState('')
+
+  const [senhaInput, setSenhaInput] = useState('')
+
+  const [errorMessage, setErrorMessage] = useState('');
+
   if (!interLoaded || !epilogueLoaded) {
     return null;
   }
+
+  function deleteInputs(){
+    setEmailInput('')
+    setSenhaInput('')
+}
+
+  function checkInputs(){
+    if(senhaInput == ''){setErrorMessage("Senha")}
+    if(emailInput == ''){setErrorMessage("Email")}
+    return !(emailInput == ''|| senhaInput == '')
+  }
+
+
+function handleSubmit(){
+      if(checkInputs()){
+        axios.post('http://10.112.240.225:3000/cliente/login', {
+          email: emailInput,
+          senha: senhaInput,
+        }).then((response) => {
+          if(response.data != ''){
+            navigation.navigate('Crud Funcionários')
+            deleteInputs()
+          }
+          else{
+            Toast.show({
+            type: 'error',
+          text1: 'Erro!',
+          text2: `Email ou senha incorretos.`,
+          visibilityTime : 15000,
+            })
+          }
+        })  
+      }
+      else{
+        Toast.show({
+          type: 'error',
+          text1: 'Erro!',
+          text2: `Erro o campo de ${errorMessage} está vazio!`,
+          visibilityTime : 15000,
+        })
+      }
+    }
+
 
   return (
     <View className="h-screen w-screen flex flex-col items-center pt-5">
@@ -47,6 +100,8 @@ function Login({ navigation }) {
       }}>Digite seu E-mail abaixo:</Text>
       <TextInput
         style={styles.shadowInput}
+        value={emailInput}
+        onChangeText={(text) => setEmailInput(text)}
         placeholder="Email@gmail.com"
       />
 
@@ -58,13 +113,20 @@ function Login({ navigation }) {
       }}>Digite sua Senha abaixo:</Text>
       <TextInput
         style={styles.shadowInput}
+        value={senhaInput}
+        onChangeText={(text) => setSenhaInput(text)}
         placeholder="Senha"
       />
       <EsqueciButton style={{ marginTop: -5, marginBottom: 45 }} onPress={() => navigation.navigate('Esqueci a Senha')}/>
       <View className="flex flex-col h-1/6 gap-7 items-center justify-center">
-      <EnterButton />
+      <EnterButton onPress={() => handleSubmit()} />
       <SignUpButton onPress={() => navigation.navigate('Cadastro')} />
       </View>
+      <Toast
+  config={toastConfig}
+  position='bottom'
+  bottomOffset={150}
+  />
     </View>
   );
 }

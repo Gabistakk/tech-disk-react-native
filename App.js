@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="ShowCase">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} /* options={headerStyle()} */ options={{headerShown: false}} />
         <Stack.Screen name="Login" component={Login} options={headerStyle()} />
         <Stack.Screen name="Esqueci a Senha" component={EsqueciASenha} options={headerStyle()} />
