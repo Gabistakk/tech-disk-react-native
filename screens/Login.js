@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "../utils/Toast";
 import axios from "axios";
+import { retrieveData, storeData } from "../utils/cacheStorageManager";
+
 
 function Login({ navigation }) {
   
@@ -19,6 +21,10 @@ function Login({ navigation }) {
   const [senhaInput, setSenhaInput] = useState('')
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(async () => {
+    console.log(await retrieveData())
+  }, [])
 
   if (!interLoaded || !epilogueLoaded) {
     return null;
@@ -38,12 +44,13 @@ function Login({ navigation }) {
 
 function handleSubmit(){
       if(checkInputs()){
-        axios.post('http://10.112.240.225:3000/cliente/login', {
+        axios.post('http://10.0.2.2:3000/login/cliente', {
           email: emailInput,
           senha: senhaInput,
         }).then((response) => {
           if(response.data != ''){
             navigation.navigate('Crud Funcionários')
+            storeData(response.data.email, response.data.senha, response.data.id)
             deleteInputs()
           }
           else{
