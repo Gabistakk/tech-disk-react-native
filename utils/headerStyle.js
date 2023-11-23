@@ -1,11 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { interFont } from "../assets/fonts/fontsExport";
 import HeaderLogo from "../assets/svg/home/headerLogo";
-import * as RootNavigation from '../utils/RootNavigation';
-
-function loadFonts(){
-
-}
+import * as RootNavigation from './RootNavigation';
 
 
 export function headerStyle(){

@@ -24,17 +24,6 @@ function SignUp({ navigation }) {
     const [errorMessage, setErrorMessage] = useState('');
 
 
-    useEffect(() => {
-      async function getAuth(){
-        const data = await useAuth();
-        console.log(data)
-        if(data !== ''){
-          navigation.navigate('Crud Funcionários')
-        }
-      }
-      getAuth()
-    }, [])
-
     function deleteInputs(){
           setNomeInput('')
           setEmailInput('')

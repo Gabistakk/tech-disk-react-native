@@ -1,10 +1,13 @@
-import { View, Text, Button, TextInput, StyleSheet, ScrollView } from "react-native";
+import { View, Text, Button, TextInput, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { epilogueFont, interFont } from "../assets/fonts/fontsExport";
 import Lupa from "../assets/svg/crudFunc/lupa";
 import CardFunc from "../components/crudFunc/CardFunc";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../utils/handleAuth";
+
+
+
 function CrudFunc({ navigation }) {
   const [interLoaded] = interFont();
 
@@ -16,18 +19,24 @@ function CrudFunc({ navigation }) {
 
   const [search, setSearch] = useState('')
 
+  const [isSet, setIsSet] = useState(false)
+  const [authData, setAuthData] = useState('')
+  const [isLogged, setIsLogged] = useState(false)
+  const [isEmpregado, setIsEmpregado] = useState('')
 
-  useEffect(() => {
-    async function getAuth(){
-      const data = await useAuth();
-      console.log(data)
-    }
-    getAuth()
-  }, [])
-
+    useEffect(() => {
+      async function getAuth(){
+        const [returnAuthData, authIsLogged, authIsEmpregado] = await useAuth();
+        setAuthData(returnAuthData)
+        setIsLogged(authIsLogged)
+        setIsEmpregado(authIsEmpregado)
+      }
+      getAuth()
+      getData()
+    }, [])
   const getData = async () => {
     try {
-      const res = await axios.get("http://10.112.240.225:3000/empregado")
+      const res = await axios.get("http://10.0.2.2:3000/empregado")
       setData(res.data)
       setLoaded(true)
     }
@@ -64,9 +73,24 @@ function CrudFunc({ navigation }) {
       </Text>
       {loaded && data.filter(funcionario => (funcionario.nome.toUpperCase().includes(search.toUpperCase())) || funcionario.especialidade.toUpperCase().includes(search.toUpperCase())).map(funcionario => {
         return(
-          <CardFunc nome={funcionario.nome} especialidade={funcionario.especialidade} disponibilidade={funcionario.disponibilidade} />
+          <TouchableOpacity
+          onPress={() => navigation.navigate('Localização', {
+            nome: funcionario.nome,
+            email: funcionario.email,
+            disponibilidade: funcionario.disponibilidade,
+            especialidade: funcionario.especialidade,
+            cidade: funcionario.endereco.cidade
+          })}>
+            <CardFunc key={funcionario.id} nome={funcionario.nome.split(" ")[0] + " " + funcionario.nome.split(" ")[1]} especialidade={funcionario.especialidade} disponibilidade={funcionario.disponibilidade} 
+            />
+          </TouchableOpacity>
         )
       })}
+      <CardFunc />
+      <CardFunc />
+      <CardFunc />
+      <CardFunc />
+      <CardFunc />
       </ScrollView>
     </View>
   );

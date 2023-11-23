@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import ServicesChip from './servicesChip'
 import { interFont } from '../../assets/fonts/fontsExport'
 
-function CardServices( { nome, garantia, detalhes }) {
+function CardServices( { nome = 'indisponivel', garantia = 'indisponivel', detalhes = 'indisponivel', empregado = 'indisponivel' }) {
 
   const [interLoaded] = interFont();
 
@@ -22,6 +22,8 @@ function CardServices( { nome, garantia, detalhes }) {
           <ServicesChip text={detalhes} />
           <Text style={{fontFamily: 'InterSemiBold', fontSize: 20}} className="text-white">Tempo de Garantia:</Text>
           <ServicesChip text={garantia} />
+          <Text style={{fontFamily: 'InterSemiBold', fontSize: 20}} className="text-white">Funcionário:</Text>
+          <ServicesChip text={empregado[0] + " " + empregado[1]} />
       </View>
   )
 }

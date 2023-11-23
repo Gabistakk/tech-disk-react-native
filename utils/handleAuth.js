@@ -1,18 +1,14 @@
 import { retrieveData } from "./cacheStorageManager";
 import * as RootNavigation from '../utils/RootNavigation';
 import axios from "axios";
-import { CommonActions } from "@react-navigation/native";
-import { useState } from "react";
 
 export async function useAuth(){
-    
-    var responseData = {}
-    
+        
     var checkData = await retrieveData()
     
     if(checkData == undefined){
         RootNavigation.navigate('Login')
-        return;
+        return [null, false];
     }
 
     const authData = JSON.parse(checkData)
@@ -31,7 +27,7 @@ export async function useAuth(){
 
             const responseData = response.data
 
-            return responseData;
+            return [responseData, isLogged = true, isEmpregado = false];
         }
         catch(error){
             console.error(error)
@@ -39,7 +35,7 @@ export async function useAuth(){
     }
     if(authData.isEmpregado == true){
         try{
-            const response = await axios.post('http://10.0.2.2:3000/login/cliente', {
+            const response = await axios.post('http://10.0.2.2:3000/login/empregado', {
                 email: authData.email,
                 senha: authData.senha
             })
@@ -51,7 +47,7 @@ export async function useAuth(){
 
             const responseData = response.data
 
-            return responseData;
+            return [responseData, isLogged = true, isEmpregado = true];
         }
         catch(error){
             console.error(error)

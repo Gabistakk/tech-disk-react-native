@@ -17,18 +17,24 @@ function CrudServices({ navigation }) {
 
   const [search, setSearch] = useState('')
 
+  const [isSet, setIsSet] = useState(false)
+  const [authData, setAuthData] = useState('')
+  const [isLogged, setIsLogged] = useState(false)
+  const [isEmpregado, setIsEmpregado] = useState('')
 
-  useEffect(() => {
-    async function getAuth(){
-      const data = await useAuth();
-      console.log(data)
-    }
-    getAuth()
-  }, [])
-
+    useEffect(() => {
+      async function getAuth(){
+        const [returnAuthData, authIsLogged, authIsEmpregado] = await useAuth();
+        setAuthData(returnAuthData)
+        setIsLogged(authIsLogged)
+        setIsEmpregado(authIsEmpregado)
+      }
+      getAuth()
+      getData()
+    }, [])
   const getData = async () => {
     try {
-      const res = await axios.get("http://10.112.240.225:3000/servico")
+      const res = await axios.get("http://10.0.2.2:3000/servico")
       setData(res.data)
       setLoaded(true)
     }
@@ -59,9 +65,15 @@ function CrudServices({ navigation }) {
       >
         Resultados da Pesquisa {"\n"}Serviços
       </Text>
-      {loaded && data.filter(servico => ((servico.nome.toUpperCase().includes(search.toUpperCase())) || (servico.detalhesContrato.toUpperCase().includes(search.toUpperCase())))).map(servico => {
+      
+      {loaded && data.filter(servico => ((servico.nome.toUpperCase().includes(search.toUpperCase()))|| (servico.empregado.nome.toUpperCase().includes(search.toUpperCase())) || (servico.detalhesContrato.toUpperCase().includes(search.toUpperCase())))).map(servico => {
         return(
-          <CardServices nome={servico.nome} garantia={servico.garantia}detalhes={servico.detalhesContrato} />
+          <CardServices key={servico.id}
+          nome={servico.nome}
+          garantia={servico.garantia}
+          detalhes={servico.detalhesContrato}
+          empregado={servico.empregado.nome.split(" ")}
+          />
         )
       })}
       </ScrollView>

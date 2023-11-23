@@ -15,7 +15,7 @@ import ShowCaseScreen from "./screens/ShowCaseScreen";
 import CrudFunc from "./screens/CrudFunc";
 import CrudServices from "./screens/CrudServices";
 
-import { headerStyle, loginHeaderStyle } from "./components/headerStyle";
+import { headerStyle, loginHeaderStyle } from "./utils/headerStyle";
 
 
 const Stack = createNativeStackNavigator();
