@@ -6,6 +6,7 @@ import axios from 'axios';
 import Toast from 'react-native-toast-message';
 
 import { toastConfig } from '../utils/Toast';
+import { useAuth } from '../utils/handleAuth';
 
 
 function SignUp({ navigation }) {
@@ -21,6 +22,18 @@ function SignUp({ navigation }) {
     const [cpfInput, setCpfInput] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
+
+
+    useEffect(() => {
+      async function getAuth(){
+        const data = await useAuth();
+        console.log(data)
+        if(data !== ''){
+          navigation.navigate('Crud Funcionários')
+        }
+      }
+      getAuth()
+    }, [])
 
     function deleteInputs(){
           setNomeInput('')

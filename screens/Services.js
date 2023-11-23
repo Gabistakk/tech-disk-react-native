@@ -3,12 +3,19 @@ import { epilogueFont, interFont } from '../assets/fonts/fontsExport';
 import Pen from '../assets/svg/services/pen';
 import Trash from '../assets/svg/services/trash';
 import ServicesRow from '../components/services/ServicesRow';
+import { useEffect } from 'react';
+import { useAuth } from '../utils/handleAuth';
 
 function Services({ navigation }) {
 
     const [interLoaded] = interFont();
 
   const [epilogueLoaded] = epilogueFont();
+  
+    useEffect(() => {
+      async function getAuth(){await useAuth()}
+      getAuth()
+    }, [])
 
   if (!interLoaded || !epilogueLoaded) {
     return null;

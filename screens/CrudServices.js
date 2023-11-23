@@ -4,6 +4,7 @@ import Lupa from "../assets/svg/crudFunc/lupa";
 import CardServices from '../components/crudServices/CardServices';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../utils/handleAuth";
 
 function CrudServices({ navigation }) {
   const [interLoaded] = interFont();
@@ -18,9 +19,12 @@ function CrudServices({ navigation }) {
 
 
   useEffect(() => {
-    getData();
+    async function getAuth(){
+      const data = await useAuth();
+      console.log(data)
+    }
+    getAuth()
   }, [])
-
 
   const getData = async () => {
     try {

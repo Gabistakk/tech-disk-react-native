@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import LocationPfp from '../assets/svg/location/pfp'
 import { epilogueFont, interFont } from '../assets/fonts/fontsExport';
 import { Calendar } from 'react-native-calendars';
+import { useAuth } from '../utils/handleAuth';
 
 function Location({ navigation }) {
     const [interLoaded] = interFont();
 
     const [epilogueLoaded] = epilogueFont();
+    useEffect(() => {
+      async function getAuth(){
+        const data = await useAuth();
+        console.log(data)
+      }
+      getAuth()
+    }, [])
   
     if (!interLoaded || !epilogueLoaded) {
       return null;
     }
-  
+    
   return (
     <View className="w-screen h-screen  flex flex-col items-center pt-8">
         <LocationPfp />

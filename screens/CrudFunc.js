@@ -1,13 +1,10 @@
 import { View, Text, Button, TextInput, StyleSheet, ScrollView } from "react-native";
 import { epilogueFont, interFont } from "../assets/fonts/fontsExport";
 import Lupa from "../assets/svg/crudFunc/lupa";
-import PfpIcon from "../assets/svg/crudFunc/icon";
-import Tag from "../assets/svg/crudFunc/tag";
-import Chip from "../components/Chip";
-import PfpiconW from '../assets/svg/crudFunc/pfpiconW';
 import CardFunc from "../components/crudFunc/CardFunc";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../utils/handleAuth";
 function CrudFunc({ navigation }) {
   const [interLoaded] = interFont();
 
@@ -21,7 +18,11 @@ function CrudFunc({ navigation }) {
 
 
   useEffect(() => {
-    getData();
+    async function getAuth(){
+      const data = await useAuth();
+      console.log(data)
+    }
+    getAuth()
   }, [])
 
   const getData = async () => {

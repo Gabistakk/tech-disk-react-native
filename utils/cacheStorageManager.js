@@ -1,13 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export async function storeData(email, senha, id){
+export async function storeData(email, senha, id, isEmpregado){
     try {
       await AsyncStorage.setItem(
         'login',
         JSON.stringify({
             email: email,
             senha: senha,
-            userId: id
+            userId: id,
+            isEmpregado: isEmpregado
         }),
       );
     } catch (error) {

@@ -8,6 +8,8 @@ import Toast from "react-native-toast-message";
 import { toastConfig } from "../utils/Toast";
 import axios from "axios";
 import { retrieveData, storeData } from "../utils/cacheStorageManager";
+import CircleCheckBox, {LABEL_POSITION} from 'react-native-circle-checkbox';  
+import { useAuth } from "../utils/handleAuth";
 
 
 function Login({ navigation }) {
@@ -22,9 +24,19 @@ function Login({ navigation }) {
 
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(async () => {
-    console.log(await retrieveData())
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    async function getAuth(){
+      const data = await useAuth();
+      console.log(data)
+      if(data !== ''){
+        navigation.navigate('Crud Funcionários')
+      }
+    }
+    getAuth()
   }, [])
+  
 
   if (!interLoaded || !epilogueLoaded) {
     return null;
@@ -43,14 +55,34 @@ function Login({ navigation }) {
 
 
 function handleSubmit(){
-      if(checkInputs()){
+      if(checkInputs() && isSelected == false){
         axios.post('http://10.0.2.2:3000/login/cliente', {
           email: emailInput,
           senha: senhaInput,
         }).then((response) => {
           if(response.data != ''){
             navigation.navigate('Crud Funcionários')
-            storeData(response.data.email, response.data.senha, response.data.id)
+            storeData(response.data.email, response.data.senha, response.data.id, false)
+            deleteInputs()
+          }
+          else{
+            Toast.show({
+            type: 'error',
+          text1: 'Erro!',
+          text2: `Email ou senha incorretos.`,
+          visibilityTime : 15000,
+            })
+          }
+        })  
+      }
+      if(checkInputs() && isSelected == true){
+        axios.post('http://10.0.2.2:3000/login/empregado', {
+          email: emailInput,
+          senha: senhaInput,
+        }).then((response) => {
+          if(response.data != ''){
+            navigation.navigate('Crud Funcionários')
+            storeData(response.data.email, response.data.senha, response.data.id, true)
             deleteInputs()
           }
           else{
@@ -124,7 +156,14 @@ function handleSubmit(){
         onChangeText={(text) => setSenhaInput(text)}
         placeholder="Senha"
       />
-      <EsqueciButton style={{ marginTop: -5, marginBottom: 45 }} onPress={() => navigation.navigate('Esqueci a Senha')}/>
+<CircleCheckBox
+  checked={isSelected}
+  onToggle={() => setIsSelected(!isSelected)}
+  labelPosition={LABEL_POSITION.RIGHT}
+  label="Selecione para logar como Funcionário"
+  styleLabel={{ fontFamily: 'InterSemiBold', fontSize: 15}}
+/>
+      <EsqueciButton style={{ marginTop: 10, marginBottom: 45 }} onPress={() => navigation.navigate('Esqueci a Senha')}/>
       <View className="flex flex-col h-1/6 gap-7 items-center justify-center">
       <EnterButton onPress={() => handleSubmit()} />
       <SignUpButton onPress={() => navigation.navigate('Cadastro')} />

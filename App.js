@@ -3,7 +3,6 @@ import { View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
-import headerStyle from "./components/headerStyle";
 import Login from "./screens/Login";
 import EsqueciASenha from "./screens/EsqueciASenha";
 import SignUp from "./screens/SignUp";
@@ -16,6 +15,9 @@ import ShowCaseScreen from "./screens/ShowCaseScreen";
 import CrudFunc from "./screens/CrudFunc";
 import CrudServices from "./screens/CrudServices";
 
+import { headerStyle, loginHeaderStyle } from "./components/headerStyle";
+
+
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator initialRouteName="ShowCase">
         <Stack.Screen name="Home" component={Home} /* options={headerStyle()} */ options={{headerShown: false}} />
-        <Stack.Screen name="Login" component={Login} options={headerStyle()} />
+        <Stack.Screen name="Login" component={Login} options={loginHeaderStyle()} />
         <Stack.Screen name="Esqueci a Senha" component={EsqueciASenha} options={headerStyle()} />
         <Stack.Screen name="Cadastro" component={SignUp} options={headerStyle()} />
         <Stack.Screen name="Sobre Nós" component={AboutUs} options={headerStyle()} />
