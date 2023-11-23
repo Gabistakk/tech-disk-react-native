@@ -28,7 +28,6 @@ function AboutUs({ navigation }) {
         <View className="w-screen pl-10 mt-16">
       <Text style={{fontFamily: 'EpilogueLight', fontSize: 25}}>
       A Tech Disk é um trabalho de TCC do curso de informática da FIEC. Nós escolhemos este tema na procura de um objetivo para nosso aplicativo.{'\n'}{'\n'}
-
 Detectamos uma carência de plataformas acessíveis para a contratação de profissionais de informática, com o foco em ajudar os idodos na internet.
       </Text>
         </View>
