@@ -16,6 +16,7 @@ import CrudFunc from "./screens/CrudFunc";
 import CrudServices from "./screens/CrudServices";
 
 import { headerStyle, loginHeaderStyle } from "./utils/headerStyle";
+import UserMenu from "./screens/UserMenu";
 
 
 const Stack = createNativeStackNavigator();
@@ -29,11 +30,12 @@ function App() {
         <Stack.Screen name="Esqueci a Senha" component={EsqueciASenha} options={headerStyle()} />
         <Stack.Screen name="Cadastro" component={SignUp} options={headerStyle()} />
         <Stack.Screen name="Sobre Nós" component={AboutUs} options={headerStyle()} />
-        <Stack.Screen name="Serviços" component={Services} options={headerStyle()} />
-        <Stack.Screen name="Crud Serviços" component={CrudServices} options={headerStyle()} />
-        <Stack.Screen name="Crud Funcionários" component={CrudFunc} options={headerStyle()} />
+        <Stack.Screen name="Seus Serviços" component={Services} options={headerStyle()} />
+        <Stack.Screen name="Serviços" component={CrudServices} options={headerStyle()} />
+        <Stack.Screen name="Funcionários" component={CrudFunc} options={headerStyle()} />
         <Stack.Screen name="Localização" component={Location} options={headerStyle()} />
         <Stack.Screen name="ShowCase" component={ShowCaseScreen} options={headerStyle()} />
+        <Stack.Screen name="Menu de Usuário" component={UserMenu} options={loginHeaderStyle()} />
       </Stack.Navigator>
     </NavigationContainer>
   );

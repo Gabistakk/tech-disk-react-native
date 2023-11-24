@@ -4,16 +4,18 @@ import axios from "axios";
 import { IP } from "./env";
 
 export async function useAuth(){
-        
+
     var checkData = await retrieveData()
     
-    if(checkData == undefined){
+    if(checkData == undefined 
+    || JSON.parse(checkData).email == null
+    || JSON.parse(checkData).senha == null
+    || JSON.parse(checkData).id == null){
         RootNavigation.navigate('Login')
         return [null, false];
     }
-
     const authData = JSON.parse(checkData)
-
+    
     if(authData.isEmpregado == false){
         try{
             const response = await axios.post(`http://${IP}:3000/login/cliente`, {

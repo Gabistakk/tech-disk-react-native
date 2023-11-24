@@ -2,7 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import { interFont } from "../assets/fonts/fontsExport";
 import HeaderLogo from "../assets/svg/home/headerLogo";
 import * as RootNavigation from './RootNavigation';
+import { storeData } from "./cacheStorageManager";
 
+
+async function handleLogOff(){
+  await storeData(null, null, null, null)
+  RootNavigation.navigate('Login')
+}
 
 export function headerStyle(){
 
@@ -25,7 +31,7 @@ export function headerStyle(){
         fontSize: 25,
         fontFamily: "InterBold",
       },
-      headerRight: () => <HeaderLogo onPress={() => RootNavigation.navigate('Sobre Nós')} />,
+      headerRight: () => <HeaderLogo onPress={() => handleLogOff()} />,
     }
     )
 
@@ -53,7 +59,7 @@ export function headerStyle(){
           fontSize: 25,
           fontFamily: "InterBold",
         },
-        headerRight: () => <HeaderLogo onPress={() => RootNavigation.navigate('Sobre Nós')} />,
+        headerRight: () => <HeaderLogo onPress={() => handleLogOff()} />,
   headerLeft: () => <></>
 
       }

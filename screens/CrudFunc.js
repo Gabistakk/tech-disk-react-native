@@ -42,7 +42,7 @@ function CrudFunc({ navigation }) {
       setLoaded(true)
     }
     catch(err){
-      console.log(err.message)
+      console.error(err.message)
     }
   }
 
@@ -80,9 +80,13 @@ function CrudFunc({ navigation }) {
             email: funcionario.email,
             disponibilidade: funcionario.disponibilidade,
             especialidade: funcionario.especialidade,
-            cidade: funcionario.endereco.cidade
+            cidade: funcionario.endereco.cidade,
+            id: funcionario.id
           })}>
-            <CardFunc key={funcionario.id} nome={funcionario.nome.split(" ")[0] + " " + funcionario.nome.split(" ")[1]} especialidade={funcionario.especialidade} disponibilidade={funcionario.disponibilidade} 
+            <CardFunc key={funcionario.id}
+            nome={funcionario.nome.split(" ")[0]}
+            especialidade={funcionario.especialidade}
+            disponibilidade={funcionario.disponibilidade} 
             />
           </TouchableOpacity>
         )

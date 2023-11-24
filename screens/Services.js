@@ -232,7 +232,7 @@ function Services({ navigation }) {
       >
         <View className="w-screen h-full flex flex-col items-center">
       
-      {loaded && data.filter(servico => ((servico.nome.toUpperCase().includes(search.toUpperCase())) && (servico.empregadoId == authData.id))).map(servico => {
+      {loaded && data.filter(servico => ((servico.nome.toUpperCase().includes(search.toUpperCase())) && (servico.empregadoId == authData.id && isEmpregado))).map(servico => {
         return(
           <>
           <View className="w-full flex flex-row gap-7 mt-7 items-center justify-center mb-5">

@@ -52,7 +52,7 @@ function SignUp({ navigation }) {
         }).then((response) => {
   
           if(response.status == 201){
-            navigation.navigate('Crud Serviços')
+            navigation.navigate('Seus Serviços')
           }
           deleteInputs()
         })  

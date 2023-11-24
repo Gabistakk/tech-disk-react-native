@@ -23,19 +23,26 @@ function Login({ navigation }) {
 
   const [senhaInput, setSenhaInput] = useState('')
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('Email');
 
   const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault()});
+  }, [navigation])
 
   useEffect(() => {
     async function getAuth() {
       const [data, isLogged, isEmpregado] = await useAuth();
       if (isLogged) {
         if (isEmpregado) {
-          navigation.navigate('Serviços')
-          return
+          navigation.navigate('Seus Serviços')
         }
-        navigation.navigate('Crud Funcionários')
+        else{
+          navigation.navigate('Menu de Usuário')
+        }
       }
     }
     getAuth()
@@ -59,6 +66,7 @@ function Login({ navigation }) {
 
 
   function handleSubmit() {
+    checkInputs()
     if (checkInputs()) {
       if (isSelected == false) {
         axios.post(`http://${IP}:3000/login/cliente`, {
@@ -66,7 +74,7 @@ function Login({ navigation }) {
           senha: senhaInput,
         }).then((response) => {
           if (response.data != '') {
-            navigation.navigate('Crud Funcionários')
+            navigation.navigate('Menu de Usuário')
             storeData(response.data.email, response.data.senha, response.data.id, false)
             deleteInputs()
           }
@@ -86,7 +94,7 @@ function Login({ navigation }) {
           senha: senhaInput,
         }).then((response) => {
           if (response.data != '') {
-            navigation.navigate('Serviços')
+            navigation.navigate('Seus Serviços')
             storeData(response.data.email, response.data.senha, response.data.id, true)
             deleteInputs()
           }

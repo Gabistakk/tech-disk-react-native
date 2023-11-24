@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { epilogueFont } from "../assets/fonts/fontsExport.js";
 import HomeLogo from "../assets/svg/home/homeLogo.js";
 import HomeButton from "../assets/svg/home/homeButton.js";
@@ -14,7 +14,9 @@ function Home({ navigation }) {
   return (
     <View className=" h-screen w-screen flex flex-col items-center pt-28 justify-start">
       <View className="mb-20 mt-10">
-        <HomeLogo />
+        <Pressable onPress={() => navigation.navigate('Sobre Nós')}>
+          <HomeLogo />
+        </Pressable>
       </View>
       <Text
         style={{ fontFamily: "EpilogueRegular" }}

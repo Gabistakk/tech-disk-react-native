@@ -23,7 +23,7 @@ function CardServices( { nome = 'indisponivel', garantia = 'indisponivel', detal
           <Text style={{fontFamily: 'InterSemiBold', fontSize: 20}} className="text-white">Tempo de Garantia:</Text>
           <ServicesChip text={garantia} />
           <Text style={{fontFamily: 'InterSemiBold', fontSize: 20}} className="text-white">Funcionário:</Text>
-          <ServicesChip text={empregado[0] + " " + empregado[1]} />
+          <ServicesChip text={empregado[0]} />
       </View>
   )
 }

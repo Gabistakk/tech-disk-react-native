@@ -17,15 +17,13 @@ function ShowCaseScreen({ navigation }) {
         <View className="h-5"></View>
         <Button title='Sobre Nós' onPress={() => navigation.navigate('Sobre Nós')} />
         <View className="h-5"></View>
+        <Button title='Seus Serviços' onPress={() => navigation.navigate('Seus Serviços')} />
+        <View className="h-5"></View>
         <Button title='Serviços' onPress={() => navigation.navigate('Serviços')} />
         <View className="h-5"></View>
-        <Button title='Crud Serviços' onPress={() => navigation.navigate('Crud Serviços')} />
+        <Button title='Funcionários' onPress={() => navigation.navigate('Funcionários')} />
         <View className="h-5"></View>
-        <Button title='Crud Funcionários' onPress={() => navigation.navigate('Crud Funcionários')} />
-        <View className="h-5"></View>
-        <Button title='Localização' onPress={() => navigation.navigate('Localização')} />
-        <View className="h-5"></View>
-        <Button title='Adicionar e Editar Serviço' onPress={() => navigation.navigate('Adicionar e Editar Serviço')} />
+        <Button title='Menu de Usuário' onPress={() => navigation.navigate('Menu de Usuário')} />
     </View>
   )
 }
