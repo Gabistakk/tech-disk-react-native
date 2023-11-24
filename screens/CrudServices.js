@@ -5,6 +5,7 @@ import CardServices from '../components/crudServices/CardServices';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../utils/handleAuth";
+import { IP } from "../utils/env";
 
 function CrudServices({ navigation }) {
   const [interLoaded] = interFont();
@@ -34,7 +35,7 @@ function CrudServices({ navigation }) {
     }, [])
   const getData = async () => {
     try {
-      const res = await axios.get("http://10.0.2.2:3000/servico")
+      const res = await axios.get(`http://${IP}:3000/servico`)
       setData(res.data)
       setLoaded(true)
     }

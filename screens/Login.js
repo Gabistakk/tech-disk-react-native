@@ -10,6 +10,7 @@ import axios from "axios";
 import { retrieveData, storeData } from "../utils/cacheStorageManager";
 import CircleCheckBox, { LABEL_POSITION } from 'react-native-circle-checkbox';
 import { useAuth } from "../utils/handleAuth";
+import { IP } from "../utils/env";
 
 
 function Login({ navigation }) {
@@ -60,7 +61,7 @@ function Login({ navigation }) {
   function handleSubmit() {
     if (checkInputs()) {
       if (isSelected == false) {
-        axios.post('http://10.0.2.2:3000/login/cliente', {
+        axios.post(`http://${IP}:3000/login/cliente`, {
           email: emailInput,
           senha: senhaInput,
         }).then((response) => {
@@ -80,7 +81,7 @@ function Login({ navigation }) {
         })
       }
       if(isSelected == true) {
-        axios.post('http://10.0.2.2:3000/login/empregado', {
+        axios.post(`http://${IP}:3000/login/empregado`, {
           email: emailInput,
           senha: senhaInput,
         }).then((response) => {

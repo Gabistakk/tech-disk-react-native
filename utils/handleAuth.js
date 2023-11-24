@@ -1,6 +1,7 @@
 import { retrieveData } from "./cacheStorageManager";
 import * as RootNavigation from '../utils/RootNavigation';
 import axios from "axios";
+import { IP } from "./env";
 
 export async function useAuth(){
         
@@ -15,7 +16,7 @@ export async function useAuth(){
 
     if(authData.isEmpregado == false){
         try{
-            const response = await axios.post('http://10.0.2.2:3000/login/cliente', {
+            const response = await axios.post(`http://${IP}:3000/login/cliente`, {
                 email: authData.email,
                 senha: authData.senha
             })
@@ -35,7 +36,7 @@ export async function useAuth(){
     }
     if(authData.isEmpregado == true){
         try{
-            const response = await axios.post('http://10.0.2.2:3000/login/empregado', {
+            const response = await axios.post(`http://${IP}:3000/login/empregado`, {
                 email: authData.email,
                 senha: authData.senha
             })

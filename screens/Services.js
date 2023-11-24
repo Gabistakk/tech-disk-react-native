@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TextInput, View, RefreshControl, Modal, Pressable, Touchable, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, Text, TextInput, View, RefreshControl, Modal, Pressable, Touchable, TouchableOpacity, Keyboard } from 'react-native'
 import { epilogueFont, interFont } from '../assets/fonts/fontsExport';
 import Pen from '../assets/svg/services/pen';
 import Trash from '../assets/svg/services/trash';
@@ -7,6 +7,7 @@ import { useAuth } from '../utils/handleAuth';
 import axios from 'axios';
 import Lupa from '../assets/svg/crudFunc/lupa';
 import Plus from '../assets/svg/services/plus';
+import { IP } from '../utils/env';
 
 function Services({ navigation }) {
 
@@ -81,15 +82,15 @@ function Services({ navigation }) {
     }, [changeName])
 
 
-    useEffect(() => {
-      console.log(idToChange)
-    }, [idToChange])
+    Keyboard.addListener('keyboardDidHide', () => {
+      setTranslateQuantity(0);
+    })
 
 
     const getData = async () => {
       setRefreshing(true)
       try {
-        const res = await axios.get("http://10.0.2.2:3000/servico")
+        const res = await axios.get(`http://${IP}:3000/servico`)
         setData(res.data)
         setLoaded(true)
       }
@@ -103,7 +104,7 @@ function Services({ navigation }) {
 
     const handleDelete = async (deleteId) => {
       try{
-        const res = await axios.delete(`http://10.0.2.2:3000/servico/${deleteId}`)
+        const res = await axios.delete(`http://${IP}:3000/servico/${deleteId}`)
         getData()
       }
       catch(error){
@@ -114,7 +115,7 @@ function Services({ navigation }) {
 
     onFocusAnimation = async (input) => {
       if(input == 'nome'){
-        setTranslateQuantity(300)
+        setTranslateQuantity(150)
       }
 
       if(input == 'garantia'){
@@ -125,7 +126,7 @@ function Services({ navigation }) {
       }
 
       if(input == 'recursos'){
-        setTranslateQuantity(-150)
+        setTranslateQuantity(-50)
       }
 
       if(input == 'objetivo'){
@@ -140,7 +141,7 @@ function Services({ navigation }) {
     const handleChange = async () => {
       if(changeName != ''){
         try{
-          const res = await axios.patch(`http://10.0.2.2:3000/servico/${idToChange}`, {
+          const res = await axios.patch(`http://${IP}:3000/servico/${idToChange}`, {
             nome: changeName,
             garantia: changeGarantia,
             detalhesContrato: changeContrato,
@@ -160,7 +161,7 @@ function Services({ navigation }) {
     const handleAdd = async () => {
       if(addNome != '' && addGarantia != '' && addContrato != '' && addRecursos != '' && addTermos != '' && addObjetivo != ''){
         try{
-          const res = await axios.post(`http://10.0.2.2:3000/servico`, {
+          const res = await axios.post(`http://${IP}:3000/servico`, {
             nome: addNome,
             garantia: addGarantia,
             detalhesContrato: addContrato,
@@ -188,7 +189,7 @@ function Services({ navigation }) {
       setAddTermos('')
     }
 
-    const handleChangeClick = (nome, garantia, contrato, recursos, objetivo, termos, empregadoId, id) => {
+    const handleChangeClick = (nome, garantia, contrato, recursos, objetivo, termos, id) => {
       setChangeName(nome)
       setChangeGarantia(garantia)
       setChangeContrato(contrato)

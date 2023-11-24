@@ -5,6 +5,7 @@ import CardFunc from "../components/crudFunc/CardFunc";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../utils/handleAuth";
+import { IP } from "../utils/env";
 
 
 
@@ -36,7 +37,7 @@ function CrudFunc({ navigation }) {
     }, [])
   const getData = async () => {
     try {
-      const res = await axios.get("http://10.0.2.2:3000/empregado")
+      const res = await axios.get(`http://${IP}:3000/empregado`)
       setData(res.data)
       setLoaded(true)
     }

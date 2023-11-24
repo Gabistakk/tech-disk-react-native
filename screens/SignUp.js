@@ -7,6 +7,7 @@ import Toast from 'react-native-toast-message';
 
 import { toastConfig } from '../utils/Toast';
 import { useAuth } from '../utils/handleAuth';
+import { IP } from '../utils/env';
 
 
 function SignUp({ navigation }) {
@@ -41,7 +42,7 @@ function SignUp({ navigation }) {
 
     function handleSubmit(){
       if(checkInputs()){
-        axios.post('http://10.112.240.225:3000/cliente', {
+        axios.post(`http://${IP}:3000/cliente`, {
           nome: nomeInput,
           email: emailInput,
           senha: senhaInput,
