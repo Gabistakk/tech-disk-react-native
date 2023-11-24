@@ -95,7 +95,7 @@ function Services({ navigation }) {
         setLoaded(true)
       }
       catch(err){
-        console.log(err.message)
+        console.error(err.message)
       }
       setRefreshing(false)
 
