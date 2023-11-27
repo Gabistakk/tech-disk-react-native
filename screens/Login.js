@@ -38,7 +38,7 @@ function Login({ navigation }) {
       const [data, isLogged, isEmpregado] = await useAuth();
       if (isLogged) {
         if (isEmpregado) {
-          navigation.navigate('Seus Serviços')
+          navigation.navigate('Menu Funcionário')
         }
         else{
           navigation.navigate('Menu de Usuário')
@@ -74,7 +74,7 @@ function Login({ navigation }) {
           senha: senhaInput,
         }).then((response) => {
           if (response.data != '') {
-            navigation.navigate('Menu de Usuário')
+           navigation.navigate('Menu de Usuário')
             storeData(response.data.email, response.data.senha, response.data.id, false)
             deleteInputs()
           }
@@ -94,7 +94,7 @@ function Login({ navigation }) {
           senha: senhaInput,
         }).then((response) => {
           if (response.data != '') {
-            navigation.navigate('Seus Serviços')
+          navigation.navigate('Menu Funcionário')
             storeData(response.data.email, response.data.senha, response.data.id, true)
             deleteInputs()
           }

@@ -7,7 +7,7 @@ export async function storeData(email, senha, id, isEmpregado){
         JSON.stringify({
             email: email,
             senha: senha,
-            userId: id,
+            id: id,
             isEmpregado: isEmpregado
         }),
       );

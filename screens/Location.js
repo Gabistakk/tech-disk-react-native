@@ -29,6 +29,8 @@ function Location({ route, navigation }) {
 
     const [modalVisible, setModalVisible] = useState(false)
 
+    const [secondModalVisible, setSecondModalVisible] = useState(false)
+
     const [data, setData] = useState([]);
 
     const [loaded, setLoaded] = useState(false)
@@ -91,6 +93,11 @@ function Location({ route, navigation }) {
           })
         }
         else{
+          setSecondModalVisible(true)
+        }
+      }
+
+      const handleBuy = async () => {
           try{
             const res = await axios.post(`http://${IP}:3000/ordem-servico`,{
             servicoId: value,
@@ -100,6 +107,7 @@ function Location({ route, navigation }) {
             }
             )
             setModalVisible(false)
+            setSecondModalVisible(false)
             setIsSuccess(true)
             Toast.show({
               type: 'success',
@@ -111,7 +119,6 @@ function Location({ route, navigation }) {
             console.error(err)
           }
         }
-      }
 
     function formatDate(date){
       var date = date.split('-')
@@ -240,6 +247,72 @@ function Location({ route, navigation }) {
         </View>
           </View>
         </View>
+
+        <Modal
+        elevation={5}
+        style={{ elevation: 5}}
+        animationType="slide"
+        transparent={true}
+        visible={secondModalVisible}
+        onRequestClose={() => {
+          setSecondModalVisible(!secondModalVisible);
+        }}>
+          <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+          <Text
+          style={{
+            fontFamily: "InterSemiBold",
+            fontSize: 30,
+            color: "#34567E",
+          }}
+        >
+          PAGAMENTO
+        </Text>
+
+        <Text className="text-xl">Número do cartão:</Text>
+            <TextInput style={styles.shadowInput}
+        placeholder="99999-9999-9999" />
+<View className="flex flex-row w-96 justify-center items-center">
+  <View>
+<Text className="text-xl ml-10">CVV:</Text>
+            <TextInput style={[styles.shadowInput, { width: 150}]}
+        placeholder="***" />
+  </View>
+
+  <View>
+<Text className="text-xl ml-10">Validade:</Text>
+            <TextInput style={[styles.shadowInput, { width: 150}]}
+        placeholder="12/12" />
+  </View>
+</View>
+
+<Text className="text-xl">Nome Impresso:</Text>
+            <TextInput style={styles.shadowInput}
+        onChangeText={(text) => {}}
+        placeholder="Nome impresso no cartão" />
+
+<View className="flex flex-row items-center gap-5">
+          
+<Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setSecondModalVisible(false)}>
+              <Text style={styles.textStyle}>Cancelar</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonConfirm]}
+              onPress={() => {handleBuy()}}>
+              <Text style={styles.textStyle}>Confirmar</Text>
+            </Pressable>
+            {!isSuccess && <Toast
+        config={toastConfig}
+        position='top'
+        topOffset={-150}
+      />}
+        </View>
+
+        </View>
+          </View>
+      </Modal>
       </Modal>
         </View>
         {isSuccess && <Toast

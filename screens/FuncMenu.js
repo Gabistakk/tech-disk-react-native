@@ -6,8 +6,9 @@ import ServicesButton from '../assets/svg/userMenu/servicesButton'
 import { CommonActions } from '@react-navigation/native'
 import { useAuth } from '../utils/handleAuth'
 import ContractButton from '../assets/svg/userMenu/contractButton'
+import WorkButton from '../assets/svg/funcMenu/workButton'
 
-function UserMenu({ navigation }) {
+function FuncMenu({ navigation }) {
 
 
   const [epilogueLoaded] = epilogueFont()
@@ -23,6 +24,9 @@ function UserMenu({ navigation }) {
         setAuthData(returnAuthData)
         setIsLogged(authIsLogged)
         setIsEmpregado(authIsEmpregado)
+        if(authIsEmpregado == false){
+          navigation.navigate('Menu de Usuário')
+        }
       }
       getAuth()
     }, [])
@@ -33,22 +37,19 @@ function UserMenu({ navigation }) {
   }
   return (
     <View className="h-screen w-screen pt-20 flex-col items-center">
-      <Text style={{ fontFamily: 'EpilogueLight', fontSize: 36, textAlign: 'center', marginBottom: 50}}>
+      <Text style={{ fontFamily: 'EpilogueLight', fontSize: 36, textAlign: 'center', marginBottom: 100}}>
           Selecione a Tela Desejada
       </Text>
       <View className="flex-col gap-14">
-      <TouchableOpacity onPress={() => navigation.navigate('Serviços')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Seus Serviços')}>
         <ServicesButton />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Funcionários')}>
-        <FuncButton />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Contratações')}>
-        <ContractButton />
+      <TouchableOpacity onPress={() => navigation.navigate('Tarefas')}>
+        <WorkButton />
       </TouchableOpacity>
       </View>
     </View>
   )
 }
 
-export default UserMenu
+export default FuncMenu

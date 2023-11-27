@@ -22,7 +22,56 @@ function SignUp({ navigation }) {
 
     const [cpfInput, setCpfInput] = useState('');
 
+    const [dataNascInput, setDataNascInput] = useState('');
+
+    const [lastLengthDataNasc, setLastLengthDataNasc] = useState(0);
+
+    const [lastLengthCpf, setLastLengthCpf] = useState(0);
+
+
     const [errorMessage, setErrorMessage] = useState('');
+
+
+    useEffect(() => {
+      if(dataNascInput.length <= lastLengthDataNasc){
+        setDataNascInput('')
+        setLastLengthDataNasc(0)
+      }
+      else{
+        if(dataNascInput.length == 2){
+          setDataNascInput(dataNascInput + '/')
+        }
+        if(dataNascInput.length == 5){
+          setDataNascInput(dataNascInput + '/')
+        }
+      }
+      if(dataNascInput.length >= 10){
+        setDataNascInput(dataNascInput.substring(0, 10))
+      }
+      setLastLengthDataNasc(dataNascInput.length)
+    }, [dataNascInput])
+
+    useEffect(() => {
+      if(cpfInput.length <= lastLengthCpf){
+        setCpfInput('')
+        setLastLengthCpf(0)
+      }
+      else{
+        if(cpfInput.length == 3){
+          setCpfInput(cpfInput + '.')
+        }
+        if(cpfInput.length == 7){
+          setCpfInput(cpfInput + '.')
+        }
+        if(cpfInput.length == 11){
+          setCpfInput(cpfInput + '-')
+        }
+      }
+      if(cpfInput.length >= 14){
+        setCpfInput(cpfInput.substring(0, 14))
+      }
+      setLastLengthCpf(cpfInput.length)
+    }, [cpfInput])
 
 
     function deleteInputs(){
@@ -30,6 +79,7 @@ function SignUp({ navigation }) {
           setEmailInput('')
           setSenhaInput('')
           setCpfInput('')
+          setDataNascInput('')
     }
 
     function checkInputs(){
@@ -37,25 +87,20 @@ function SignUp({ navigation }) {
       if(senhaInput == ''){setErrorMessage("Senha")}
       if(emailInput == ''){setErrorMessage("Email")}
       if(nomeInput == ''){setErrorMessage("Nome")}
-      return !(nomeInput == '' || emailInput == ''|| senhaInput == '' || cpfInput == '')
+      if(dataNascInput == ''){setErrorMessage("Data de nascimento")}
+      return !(nomeInput == '' || emailInput == ''|| senhaInput == '' || cpfInput == '' || dataNascInput == '')
     }
 
     function handleSubmit(){
       if(checkInputs()){
-        axios.post(`http://${IP}:3000/cliente`, {
+        navigation.navigate('Endereço', {
           nome: nomeInput,
           email: emailInput,
           senha: senhaInput,
           cpf: cpfInput,
-          enderecoId: 0,
-          dataDeNascimento: "0"
-        }).then((response) => {
-  
-          if(response.status == 201){
-            navigation.navigate('Seus Serviços')
-          }
-          deleteInputs()
-        })  
+          dataNasc: dataNascInput
+        })
+        deleteInputs()  
       }
       else{
         Toast.show({
@@ -73,14 +118,14 @@ function SignUp({ navigation }) {
     }
 
   return (
-    <View className="h-screen w-screen items-center pt-10">
+    <View className="h-screen w-screen items-center pt-3">
       <Text style={{ fontFamily: 'EpilogueLight', fontSize: 32 }}>Faça Cadastro</Text>
 
       <Text style={{
         fontFamily: "InterSemiBold",
         color: "#697386",
         fontSize: 20,
-        marginTop: 35,
+        marginTop: 25,
         fontWeight: 'bold'
       }}>Digite seu Nome abaixo:</Text>
       <TextInput
@@ -96,7 +141,7 @@ function SignUp({ navigation }) {
         fontFamily: "InterSemiBold",
         color: "#697386",
         fontSize: 20,
-        marginTop: 20,
+        marginTop: 5,
         fontWeight: 'bold'
       }}>Digite seu E-mail abaixo:</Text>
       <TextInput
@@ -112,7 +157,7 @@ function SignUp({ navigation }) {
         fontFamily: "InterSemiBold",
         color: "#697386",
         fontSize: 20,
-        marginTop: 20,
+        marginTop: 5,
         fontWeight: 'bold'
       }}>Digite sua senha abaixo</Text>
       <TextInput
@@ -124,11 +169,11 @@ function SignUp({ navigation }) {
       />
 
 
-      <Text style={{
+<Text style={{
         fontFamily: "InterSemiBold",
         color: "#697386",
         fontSize: 20,
-        marginTop: 20,
+        marginTop: 5,
         fontWeight: 'bold'
       }}>Digite seu CPF abaixo:</Text>
       <TextInput
@@ -138,6 +183,20 @@ function SignUp({ navigation }) {
         value={cpfInput}
         onChangeText={(text) => setCpfInput(text)}
         returnKeyType="next"
+      /><Text style={{
+        fontFamily: "InterSemiBold",
+        color: "#697386",
+        fontSize: 20,
+        marginTop: 5,
+        fontWeight: 'bold'
+      }}>Digite sua data de nascimento abaixo:</Text>
+      <TextInput
+        style={styles.shadowInput}
+        keyboardType='numeric'
+        placeholder="31/12/2023"
+        value={dataNascInput}
+        onChangeText={(text) => setDataNascInput(text)}
+        returnKeyType="next"
       />
 {/* <Button title='show' onPress={() => Toast.show({
   type: 'error',
@@ -145,8 +204,8 @@ function SignUp({ navigation }) {
   text2: `Erro o campo de teste está vazio!`,
 })} /> */}
 <EnterButton
-onPress={() => handleSubmit()}
-style={{marginTop: 30}}/>
+onPress={() => handleSubmit()} 
+style={{marginTop: 15}}/>
 
   <Toast
   config={toastConfig}

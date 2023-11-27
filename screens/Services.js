@@ -63,6 +63,9 @@ function Services({ navigation }) {
         setAuthData(returnAuthData)
         setIsLogged(authIsLogged)
         setIsEmpregado(authIsEmpregado)
+        if(authIsEmpregado == false){
+          navigation.navigate('Menu de Usuário')
+        }
       }
       getAuth()
       getData()

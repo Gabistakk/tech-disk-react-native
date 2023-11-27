@@ -59,9 +59,8 @@ export function headerStyle(){
           fontSize: 25,
           fontFamily: "InterBold",
         },
-        headerRight: () => <HeaderLogo onPress={() => handleLogOff()} />,
-  headerLeft: () => <></>
-
+        headerLeft: () => <></>,
+        headerRight: () => <HeaderLogo onPress={() => handleLogOff()} />
       }
       )
   

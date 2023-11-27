@@ -7,11 +7,12 @@ export async function useAuth(){
 
     var checkData = await retrieveData()
     
+
     if(checkData == undefined 
     || JSON.parse(checkData).email == null
     || JSON.parse(checkData).senha == null
     || JSON.parse(checkData).id == null){
-        RootNavigation.navigate('Login')
+        RootNavigation.navigate('Login') 
         return [null, false];
     }
     const authData = JSON.parse(checkData)

@@ -17,6 +17,10 @@ import CrudServices from "./screens/CrudServices";
 
 import { headerStyle, loginHeaderStyle } from "./utils/headerStyle";
 import UserMenu from "./screens/UserMenu";
+import CreateAdress from "./screens/CreateAdress";
+import Tasks from "./screens/Tasks";
+import Contracts from "./screens/Contracts";
+import FuncMenu from "./screens/FuncMenu";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +28,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="ShowCase">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} /* options={headerStyle()} */ options={{headerShown: false}} />
         <Stack.Screen name="Login" component={Login} options={loginHeaderStyle()} />
         <Stack.Screen name="Esqueci a Senha" component={EsqueciASenha} options={headerStyle()} />
@@ -36,6 +40,10 @@ function App() {
         <Stack.Screen name="Localização" component={Location} options={headerStyle()} />
         <Stack.Screen name="ShowCase" component={ShowCaseScreen} options={headerStyle()} />
         <Stack.Screen name="Menu de Usuário" component={UserMenu} options={loginHeaderStyle()} />
+        <Stack.Screen name="Endereço" component={CreateAdress} options={headerStyle()} />
+        <Stack.Screen name="Tarefas" component={Tasks} options={headerStyle()} />
+        <Stack.Screen name="Contratações" component={Contracts} options={headerStyle()} />
+        <Stack.Screen name="Menu Funcionário" component={FuncMenu} options={headerStyle()} />
       </Stack.Navigator>
     </NavigationContainer>
   );
